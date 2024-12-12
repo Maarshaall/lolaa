@@ -1,8 +1,5 @@
-const password = prompt("Introdueix la contrasenya:");
-if (password !== "elnostreamor") {
-    alert("Accés denegat.");
-    window.location.href = "https://google.com"; // Redirigeix si la contrasenya és incorrecta
-}
+
+
 
 
 const messages = [
