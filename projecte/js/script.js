@@ -19,7 +19,7 @@ document.getElementById("loadMessage").addEventListener("click", () => {
             const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
             // Processar la segona fila (index 1) que conté les dades correctes
-            const primeraFila = rows[4]; // La segona fila amb dades
+            const primeraFila = rows[1]; // La segona fila amb dades
 
             console.log(primeraFila[1])
 
