@@ -19,8 +19,13 @@ document.getElementById("loadMessage").addEventListener("click", () => {
             const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
             // Processar la segona fila (index 1) que conté les dades correctes
-            const primeraFila = rows[1]; // La segona fila amb dades
-            mostrarMissatge(primeraFila);
+            const primeraFila = rows[2]; // La segona fila amb dades
+
+            console.log(primeraFila[1])
+
+            console.log(primeraFila[2])
+
+            mostrarMissatge([primeraFila[0], primeraFila[1], primeraFila[2], primeraFila[3], primeraFila[4], primeraFila[5]]);
         })
         .catch(err => console.error("Error carregant l'Excel:", err));
 });
@@ -29,11 +34,23 @@ function mostrarMissatge(fila) {
     const [dia, data, frase, linkImatge, peuFoto, linkVideo] = fila;
     const container = document.getElementById("dailyMessage");
 
-    // Convertir la data llegida de l'Excel a un objecte Date de JavaScript
-    const dataObjecte = new Date(data);
+    // Convertir la data llegida de l'Excel a un string
+    let dataExcelString = String(data);
+
+    // Convertir el string a un número
+    let dataNum = Number(dataExcelString);
+
+    // Convertir el número a una data de JavaScript
+    let dataExcel = new Date(dataNum * 86400000); // 86400000 és el nombre de mil·lisegons en un dia
+
+    // Validar si la conversió ha estat correcta
+    if (isNaN(dataExcel)) {
+        console.error("Error: La data no és vàlida.", dataNum);
+        return;
+    }
 
     // Format de data correctament
-    const dataFormatada = dataObjecte.toLocaleDateString('ca-ES', {
+    const dataFormatada = dataExcel.toLocaleDateString('ca-ES', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
@@ -81,13 +98,6 @@ function mostrarMissatge(fila) {
 
 
 
-const messages = [
-    "Ets el meu sol en dies ennuvolats.",
-    "No puc imaginar la meva vida sense tu.",
-    "Avui és un gran dia per somriure junts.",
-    "Ets la persona més increïble que conec."
-];
 
-// Mostra un missatge diferent cada dia
-const today = new Date().getDay();
-document.getElementById("message").innerText += messages[today % messages.length];
+
+
