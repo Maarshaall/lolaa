@@ -34,14 +34,12 @@ function mostrarMissatge(fila) {
     const [dia, data, frase, linkImatge, peuFoto, linkVideo] = fila;
     const container = document.getElementById("dailyMessage");
 
-    // Convertir la data llegida de l'Excel a un string
-    let dataExcelString = String(data);
-
-    // Convertir el string a un número
-    let dataNum = Number(dataExcelString);
 
     // Convertir el número a una data de JavaScript
-    let dataExcel = new Date(dataNum * 86400000); // 86400000 és el nombre de mil·lisegons en un dia
+    let dataExcel = new Date(data); // 86400000 és el nombre de mil·lisegons en un dia
+
+
+    console.log(dataExcel)
 
     // Validar si la conversió ha estat correcta
     if (isNaN(dataExcel)) {
@@ -55,6 +53,8 @@ function mostrarMissatge(fila) {
         month: '2-digit',
         year: 'numeric'
     });
+
+    console.log(dataFormatada)
 
     // Missatge base
     container.innerHTML = `
