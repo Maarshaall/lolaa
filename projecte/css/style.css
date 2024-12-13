@@ -79,6 +79,40 @@ p {
     text-decoration: underline;
 }
 
+button {
+    background-color: #e63946;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #d62828;
+    transform: scale(1.05);
+}
+
+button:active {
+    background-color: #a81d1d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(0.98);
+}
+
+
+
+#countdownMessage {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #e63946;
+}
+
+
 
 
 
