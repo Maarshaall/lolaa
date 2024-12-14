@@ -7,7 +7,7 @@ document.getElementById("loadMessage").addEventListener("click", () => {
     button.disabled = true;
     button.style.display = 'none'; // Opcional: per ocultar visualment el botó
 
-    // Càrrega l'Excel i mostra la primera fila com a missatge d'avui
+    // Càrrega l'Excel i mostra la fila corresponent al dia actual
     fetch('https://maarshaall.github.io/lolaa/projecte/missatges.xlsx')
         .then(response => response.arrayBuffer())
         .then(data => {
@@ -18,10 +18,36 @@ document.getElementById("loadMessage").addEventListener("click", () => {
             const sheet = workbook.Sheets[sheetName];
             const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-            // Processar la segona fila (index 1) que conté les dades correctes
-            const primeraFila = rows[1]; // La segona fila amb dades
+            // Obtenir la data actual
+            const today = new Date();
+            const todayString = today.toLocaleDateString("ca-ES", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            });
 
-            mostrarMissatge([primeraFila[0], primeraFila[1], primeraFila[2], primeraFila[3], primeraFila[4], primeraFila[5]]);
+            // Buscar la fila que coincideixi amb la data actual
+            const filaActual = rows.find((fila, index) => {
+                if (index === 0) return false; // Ignorar la capçalera
+                const excelDate = fila[1]; // La columna de la data
+                if (excelDate == null) return false;
+                const dataExcel = excelDateToJSDate(excelDate);
+                const dataFormatada = dataExcel.toLocaleDateString("ca-ES", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                });
+                return dataFormatada === todayString;
+            });
+
+            // Comprovar si s'ha trobat la fila
+            if (filaActual) {
+                mostrarMissatge(filaActual);
+            } else {
+                document.getElementById("dailyMessage").innerHTML = `
+                    <p>No hi ha cap missatge disponible pel dia d'avui (${todayString})! Això vol dir que segurament ja ha passat un any! Tot i així pots seguir recordant els motius de cada dia a la pestanya de "Mostrar els altres dies" </p>
+                `;
+            }
         })
         .catch(err => console.error("Error carregant l'Excel:", err));
 });
@@ -39,17 +65,12 @@ function mostrarMissatge(fila) {
     // Convertir el número d'Excel a una data de JavaScript
     const dataExcel = excelDateToJSDate(data);
 
-    console.log("Data original d'Excel:", data);
-    console.log("Data convertida:", dataExcel);
-
-    // Format de data correctament
+    // Format de la data correctament
     const dataFormatada = dataExcel.toLocaleDateString('ca-ES', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric'
     });
-
-    console.log("Data formatada:", dataFormatada);
 
     // Missatge base
     container.innerHTML = `
@@ -74,6 +95,7 @@ function mostrarMissatge(fila) {
         `;
     }
 }
+
 
 
 
