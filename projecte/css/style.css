@@ -120,7 +120,6 @@ button:active {
     margin: 20px 0;
     text-align: left;
 }
-
 /* Cada element de la llista */
 #daysList li {
     padding: 10px 15px;
@@ -133,6 +132,7 @@ button:active {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Per assegurar el correcte comportament dels missatges */
 }
 
 /* Hover: quan el cursor passa sobre un element */
@@ -142,27 +142,54 @@ button:active {
     transform: scale(1.02);
 }
 
-/* Actiu: quan l'element és seleccionat */
-#daysList li:active {
-    background-color: #d62828;
-    color: #fff;
-    transform: scale(0.98);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+/* Contenidor per als missatges dels dies */
+.messageContainer {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #fff; /* Assegura un bon contrast amb el text */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: #333; /* Manté el color del text */
+    position: relative;
+    z-index: 1; /* Assegura que es mostri per sobre del botó */
 }
 
-/* Element seleccionat */
-#daysList li.selected {
-    background-color: #e63946;
-    color: #fff;
+/* Contingut del missatge visible */
+.messageContainer > .dailyMessage {
+    display: block;
+    color: #333; /* Assegura que el text dins del missatge es manté visible */
+}
+
+/* Imatges dins del missatge */
+.messageContainer img {
+    margin-top: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Enllaços dins del missatge */
+.messageContainer a {
+    color: #e63946;
     font-weight: bold;
-    border: 2px solid #a81d1d;
+    text-decoration: none;
 }
 
-/* Quan un element està enfocat (navegació per teclat) */
-#daysList li:focus {
-    outline: 2px dashed #e63946;
-    outline-offset: 2px;
+.messageContainer a:hover {
+    text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

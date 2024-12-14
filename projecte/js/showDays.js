@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     const daysList = document.getElementById("daysList");
-    const dailyMessage = document.getElementById("dailyMessage");
 
     fetch('https://maarshaall.github.io/lolaa/projecte/missatges.xlsx')
         .then(response => response.arrayBuffer())
@@ -13,29 +12,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const today = new Date();
             const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-            console.log(today)
 
             // Generar la llista de dies fins al dia actual
             rows.slice(1).forEach((fila, index) => {
                 const [dia, data, frase, linkImatge, peuFoto, linkVideo] = fila;
                 const dataExcel = new Date((data - 25569) * 86400 * 1000); // Converteix la data d'Excel
 
-                console.log(dataExcel)
-                console.log(todayMidnight)
-
                 if (dataExcel <= todayMidnight) {
                     const li = document.createElement("li");
                     li.textContent = `Dia ${index + 1}: ${dataExcel.toLocaleDateString("ca-ES")}`;
-                    li.addEventListener("click", () => mostrarMissatge(fila));
+
+                    li.addEventListener("click", () => {
+                        // Elimina altres missatges visibles
+                        document.querySelectorAll(".messageContainer").forEach(el => el.remove());
+
+                        // Si el missatge no existeix, crea'l i mostra'l
+                        if (!li.querySelector(".messageContainer")) {
+                            const messageContainer = document.createElement("div");
+                            messageContainer.classList.add("messageContainer");
+                            mostrarMissatge(fila, messageContainer);
+                            li.appendChild(messageContainer);
+                        }
+                    });
+
                     daysList.appendChild(li);
                 }
             });
         })
         .catch(err => console.error("Error carregant l'Excel:", err));
 
-    function mostrarMissatge(fila) {
+    function mostrarMissatge(fila, container) {
         const [dia, data, frase, linkImatge, peuFoto, linkVideo] = fila;
-
         const dataExcel = new Date((data - 25569) * 86400 * 1000);
         const dataFormatada = dataExcel.toLocaleDateString("ca-ES", {
             day: "2-digit",
@@ -43,14 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
             year: "numeric"
         });
 
-        dailyMessage.innerHTML = `
-            <p><strong>Dia:</strong> ${dia}</p>
-            <p><strong>Data:</strong> ${dataFormatada}</p>
-            <p><strong>Frase:</strong> ${frase}</p>
+        container.innerHTML = `
+            <div class="dailyMessage">
+                <p><strong>Dia ${dia}:</strong> ${dataFormatada}</p>
+                <p><strong>El motiu d'avui:</strong></p>
+                <p>${frase}</p>
         `;
 
         if (linkImatge && peuFoto) {
-            dailyMessage.innerHTML += `
+            container.innerHTML += `
                 <div>
                     <img src="${linkImatge}" alt="Imatge del dia" style="max-width: 100%; height: auto;">
                     <p>${peuFoto}</p>
@@ -59,9 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (linkVideo) {
-            dailyMessage.innerHTML += `
+            container.innerHTML += `
                 <p><a href="${linkVideo}" target="_blank">Mira el vídeo</a></p>
             `;
         }
+
+        container.innerHTML += `</div>`;
     }
 });
+
+
+
