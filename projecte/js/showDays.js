@@ -67,14 +67,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (linkVideo) {
-            container.innerHTML += `
-                <p><a href="${linkVideo}" target="_blank">Mira el vídeo</a></p>
-            `;
+            if (linkVideo.includes("youtube.com") || linkVideo.includes("youtu.be")) {
+                // Cas d'un enllaç a YouTube
+                const youtubeEmbed = linkVideo.replace("watch?v=", "embed/");
+                container.innerHTML += `
+                    <div style="margin-top: 10px;">
+                        <iframe width="560" height="315" src="${youtubeEmbed}" 
+                                title="YouTube video" frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                `;
+            } else {
+                // Cas d'un fitxer de vídeo local (MP4, WebM, Ogg, etc.)
+                container.innerHTML += `
+                    <div style="margin-top: 10px;">
+                        <video controls style="max-width: 100%; height: auto;">
+                            <source src="${linkVideo}" type="video/mp4">
+                            El teu navegador no suporta la reproducció de vídeos.
+                        </video>
+                    </div>
+                `;
+            }
         }
 
         container.innerHTML += `</div>`;
     }
 });
+
 
 
 
