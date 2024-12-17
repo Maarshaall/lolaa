@@ -198,6 +198,14 @@ button:active {
     border: none;
 }
 
+.responsiveVideo {
+    max-width: 100%; /* Assegura que no excedeixi l'ample del contenidor */
+    height: auto; /* Manté la proporció de l'aspecte */
+    border: none;
+    display: block; /* Centra el vídeo dins del contenidor */
+    margin: 0 auto; /* Ajust per centrar */
+}
+
 
 
 
