@@ -200,6 +200,7 @@ button:active {
 
 .responsiveVideo {
     max-width: 100%; /* Assegura que no excedeixi l'ample del contenidor */
+    max-height: 100vh;
     height: auto; /* Manté la proporció de l'aspecte */
     border: none;
     display: block; /* Centra el vídeo dins del contenidor */
