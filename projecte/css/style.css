@@ -208,6 +208,28 @@ button:active {
 }
 
 
+@media (min-width: 768px) {
+    #dailyMessage img,
+    .messageContainer img {
+        max-width: 60%; /* Redueix encara més la mida de les imatges */
+        max-height: 300px; /* Evita que siguin massa allargades */
+        height: auto; /* Manté la proporció */
+        display: block;
+        margin: 0 auto; /* Centrat */
+    }
+
+    .responsiveVideo {
+        max-width: 60%; /* Redueix la mida dels vídeos */
+        max-height: 70vh; /* Evita que siguin massa grans en pantalles grans */
+    }
+
+    .responsiveIframe {
+        width: 60%; /* Redueix la mida dels iframes */
+        margin: 0 auto; /* Centrat */
+    }
+}
+
+
 
 
 
