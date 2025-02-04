@@ -226,6 +226,7 @@ button:active {
     .responsiveIframe {
         width: 60%; /* Redueix la mida dels iframes */
         margin: 0 auto; /* Centrat */
+    
     }
 }
 
