@@ -230,19 +230,66 @@ button:active {
     }
 }
 
+/* Estils nous per al gràfic circular adaptats al teu estil */
+.progress-circle-container {
+    margin: 30px 0;
+}
 
+.progress-circle {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+}
 
+.circle-bg {
+    fill: none;
+    stroke: #f7d9d9; /* Color de fons coherent amb el teu estil */
+    stroke-width: 10;
+}
 
+.circle-progress {
+    fill: none;
+    stroke: #e63946; /* Vermell principal del teu disseny */
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.5s ease;
+}
 
+.circle-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #e63946; /* Vermell coherent amb la teva paleta */
+}
 
+.progress-info {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.2em;
+}
 
+.progress-info strong {
+    color: #e63946;
+    font-weight: bold;
+}
 
-
-
-
-
-
-
+/* Estils per a dispositius mòbils */
+@media (max-width: 600px) {
+    .progress-circle {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .circle-text {
+        font-size: 2rem;
+    }
+}
 
 
 
