@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Cas d'un fitxer de vídeo local (MP4, WebM, Ogg, etc.)
                 container.innerHTML += `
                     <div style="margin-top: 10px;">
-                        <video class="responsiveVideo" controls>
+                        <video class="responsiveVideo" controls playsinline autoplay muted>
                             <source src="${linkVideo}" type="video/mp4">
                             El teu navegador no suporta la reproducció de vídeos.
                         </video>
